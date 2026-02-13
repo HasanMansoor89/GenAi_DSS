@@ -1,4 +1,4 @@
-# GenAi_DSS: Multi-Agent Narrative System
+# GenAI_DSS: Multi-Agent Narrative System
 
 ## 1. Introduction
 This repository serves as the base implementation for the **Generative AI module of the Hackfest x Datathon**.
@@ -134,7 +134,6 @@ This file serves as a debug/audit log for the LLM interactions. It should track:
 
 **Missing Features you must implement:**
 - **Actions**: The current agents only talk. They cannot perform actions like `[ACTION: Picks up phone]`.
-- **World State**: When an agent takes an action, its outcome should be reflected in the story state or narration.
 - **Character Memory**: Individual character memory is missing.
 - **Reasoning**: Participants can explore methods to enhance prompts so agents better reason through their decisions.
 
