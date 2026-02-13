@@ -132,9 +132,9 @@ This file serves as a debug/audit log for the LLM interactions. It should track:
 > [!IMPORTANT]
 > **This is a starter kit.** It contains the essential structure but **LACKS** the advanced features required for the full competition challenge.
 
-**Missing Features you must implement:**
+**Missing Features you are encouraged to explore:**
 - **Actions**: The current agents only talk. They cannot perform actions like `[ACTION: Picks up phone]`.
 - **Character Memory**: Individual character memory is missing.
 - **Reasoning**: Participants can explore methods to enhance prompts so agents better reason through their decisions.
 
-You are expected to extend this codebase to include these features as described in the problem statement.
+You are expected to extend this codebase to include these features or other novel features.
