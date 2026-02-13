@@ -91,7 +91,10 @@ graph TD
 
 ## 5. Usage
 
-To run the example scenario ("The Rickshaw Accident"):
+> [!IMPORTANT]
+> **Mandatory Seed Story**: All participants **MUST** use the provided "Rickshaw Accident" seed story (`examples/rickshaw_accident/seed_story.json`) for their submission.
+
+To run the example scenario:
 
 ```bash
 uv run src/main.py
@@ -131,8 +134,8 @@ This file serves as a debug/audit log for the LLM interactions. It should track:
 
 **Missing Features you must implement:**
 - **Actions**: The current agents only talk. They cannot perform actions like `[ACTION: Picks up phone]`.
-- **World State / Inventory**: There is no tracking of physical items or location changes.
-- **Deep Memory**: The memory is currently just a simple dialogue history buffer.
-- **Complex Reasoning**: Agents do not currently have a "Reasoning" step before they speak/act.
+- **World State**: When an agent takes an action, its outcome should be reflected in the story state or narration.
+- **Character Memory**: Individual character memory is missing.
+- **Reasoning**: Participants can explore methods to enhance prompts so agents better reason through their decisions.
 
 You are expected to extend this codebase to include these features as described in the problem statement.
