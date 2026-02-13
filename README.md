@@ -62,10 +62,6 @@ The system is built on a modular architecture to simulate a narrative environmen
     - Built using `LangGraph`.
     - Manages the loop: `Director Selects` -> `Character Speaks` -> `Check Conclusion`.
 
-- **Story State (`StoryStateManager`)**:
-    - Maintains the current state of the world, including dialogue history and character profiles.
-    - Loaded from `seed_story.json` and `character_configs.json`.
-
 ## 4. System Architecture
 
 The following diagram illustrates the current flow of the system:
