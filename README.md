@@ -122,4 +122,4 @@ This file serves as a debug/audit log for the LLM interactions. It should track:
 - **Character Memory**: Individual character memory is missing.
 - **Reasoning**: Participants can explore methods to enhance prompts so agents better reason through their decisions.
 
-You are expected to extend this codebase to include these features or other novel features.
+You are expected to extend this codebase to include these features and other novel features.
