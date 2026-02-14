@@ -57,6 +57,12 @@ The system is built on a modular architecture to simulate a narrative environmen
     - Generate dialogue based on their personality, the current story state, and the "Story Seed".
     - Currently implemented as purely conversational agents.
 
+- **Story State Manager (`StoryStateManager`)**:
+    - Centralized state management for the simulation.
+    - Tracks the story progression, including dialogue history and director notes.
+    - Provides context-aware state views for both the Director and Character agents.
+    - Manages turn counting and checks for story conclusion conditions.
+
 - **Narrative Graph (`NarrativeGraph`)**:
     - The state machine that orchestrates the flow of the simulation.
     - Built using `LangGraph`.
