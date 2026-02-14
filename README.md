@@ -72,24 +72,7 @@ The system is built on a modular architecture to simulate a narrative environmen
 
 The following diagram illustrates the current flow of the system:
 
-```mermaid
-graph TD
-    Start((Start)) --> DirectorSelect[Director: Select Next Speaker]
-    DirectorSelect -->|Selects Character + Narration| CharacterRespond[Character: Generate Dialogue]
-    CharacterRespond -->|Updates History| CheckConclusion{Check Conclusion}
-    
-    CheckConclusion -- Yes --> End((End/Conclude))
-    CheckConclusion -- No --> DirectorSelect
-
-    subgraph "Core Data"
-        Config[Story Config]
-        State[Story State]
-    end
-
-    DirectorSelect -.-> State
-    CharacterRespond -.-> State
-    CheckConclusion -.-> State
-```
+![Narrative Graph](narrative_graph.png)
 
 ## 5. Usage
 

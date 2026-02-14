@@ -130,3 +130,11 @@ dmypy.json
 
 # uv
 uv.lock
+
+# Visualization scripts
+visualize_graph.py
+
+
+# Visualization scripts
+visualize_graph.py
+
