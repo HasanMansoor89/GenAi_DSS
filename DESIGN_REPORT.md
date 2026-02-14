@@ -1,7 +1,7 @@
 # GenAI_DSS: Technical Design Report
 
 **Module:** Generative AI  
-**Author:** (Your Name)  
+**Author:** Hasan Mansoor & Syed Danish Khurram 
 **Task:** Multi-Agent Narrative System
 
 ---
