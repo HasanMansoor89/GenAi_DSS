@@ -60,10 +60,22 @@ async def main():
     print("\n=== STORY TRANSCRIPT ===\n")
     for turn in final_state["dialogue_history"]:
         if isinstance(turn, dict):
-             print(f"[Turn {turn.get('turn_number')}] {turn.get('speaker')}:")
-             print(f"  {turn.get('dialogue')}\n")
+             # Handle dict case if Pydantic model dump
+             speaker = turn.get('speaker')
+             dialogue = turn.get('dialogue')
+             metadata = turn.get('metadata', {})
+             action = metadata.get('action')
+             
+             print(f"[Turn {turn.get('turn_number')}] {speaker}:")
+             if action:
+                 print(f"  [ACTION]: {action}")
+             print(f"  {dialogue}\n")
         else:
+             # Handle Pydantic object
+             action = turn.metadata.get('action')
              print(f"[Turn {turn.turn_number}] {turn.speaker}:")
+             if action:
+                 print(f"  [ACTION]: {action}")
              print(f"  {turn.dialogue}\n")
     
     print(f"\n=== CONCLUSION ===")

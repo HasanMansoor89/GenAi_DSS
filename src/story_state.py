@@ -12,6 +12,9 @@ class StoryStateManager:
                 char["name"]: CharacterProfile(
                     name=char["name"],
                     description=char["description"],
+                    inventory=char.get("inventory", []),
+                    goals=char.get("goals", []),
+                    memory=char.get("memory", [])
                 ) for char in characters
             }
         )
@@ -36,10 +39,11 @@ class StoryStateManager:
         # Taking last 15 turns to give more context since we removed explicit memory
         recent_turns = self.state.dialogue_history[-15:]
         
-        history_text = "\n".join([
-            f"{turn.speaker}: {turn.dialogue}"
-            for turn in recent_turns
-        ])
+        history_lines = []
+        for turn in recent_turns:
+            action_str = f"[{turn.metadata.get('action')}] " if turn.metadata.get('action') else ""
+            history_lines.append(f"{turn.speaker}: {action_str}{turn.dialogue}")
+        history_text = "\n".join(history_lines)
         
         return f"""
     Initial Event: {self.state.seed_story.get('description', 'Unknown event')}
@@ -50,10 +54,11 @@ class StoryStateManager:
         
     def get_context_for_director(self) -> str:
         """Return full story context for director decisions."""
-        history_text = "\n".join([
-            f"[{turn.turn_number}] {turn.speaker}: {turn.dialogue}"
-            for turn in self.state.dialogue_history
-        ])
+        history_lines = []
+        for turn in self.state.dialogue_history:
+             action_str = f"[{turn.metadata.get('action')}] " if turn.metadata.get('action') else ""
+             history_lines.append(f"[{turn.turn_number}] {turn.speaker}: {action_str}{turn.dialogue}")
+        history_text = "\n".join(history_lines)
         
         return f"""
     Story Title: {self.state.seed_story.get('title', 'Untitled')}

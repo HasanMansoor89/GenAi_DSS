@@ -95,31 +95,61 @@ class NarrativeGraph:
     {history_text}
     """
         
-        response = await character.respond(state, context)
+        response_data = await character.respond(state, context)
+        
+        # Extract components
+        thought = response_data.get("thought", "")
+        action = response_data.get("action")
+        dialogue = response_data.get("dialogue", "...")
 
-        print("********************************")
-        print(f"{next_speaker}: {response}")
-        print("********************************\n")
+        print("\n" + "="*50)
+        print(f"=== {next_speaker.upper()}'S TURN ===")
+        
+        print(f"\n[INTERNAL THOUGHT]:")
+        print(f"   {thought}")
+        
+        if action:
+             print(f"\n[ACTION]:")
+             print(f"   {action}")
+             
+        print(f"\n[DIALOGUE]:")
+        print(f"   {dialogue}")
+        print("="*50 + "\n")
         
         # Update state with new turn
+        # We store the action in metadata to keep history clean but rich
         new_turn = DialogueTurn(
             turn_number=state.current_turn + 1,
             speaker=next_speaker,
-            dialogue=response
+            dialogue=dialogue,
+            metadata={"action": action, "thought": thought}
         )
         
-        # Create event log for dialogue
-        new_event = {
-            "type": "dialogue",
-            "speaker": next_speaker,
-            "content": response,
-            "turn": state.current_turn + 1
-        }
+        # Create event logs
+        new_events = []
+        
+        # 1. Log Action if present
+        if action:
+            new_events.append({
+                "type": "narration",
+                "speaker": next_speaker,
+                "content": f"[ACTION]: {action}",
+                "turn": state.current_turn + 1
+            })
+            
+        # 2. Log Dialogue
+        if dialogue:
+            new_events.append({
+                "type": "dialogue",
+                "speaker": next_speaker,
+                "content": dialogue,
+                "turn": state.current_turn + 1
+            })
         
         return {
             "dialogue_history": state.dialogue_history + [new_turn],
             "current_turn": state.current_turn + 1,
-            "events": state.events + [new_event]
+            "events": state.events + new_events
         }
     
     async def _check_conclusion_node(self, state: StoryState) -> Dict:

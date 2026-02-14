@@ -1,125 +1,104 @@
-# GenAI_DSS: Multi-Agent Narrative System
+# GenAI_DSS: Reasoning Multi-Agent Narrative System
 
-## 1. Introduction
-This repository serves as the base implementation for the **Generative AI module of the Hackfest x Datathon**.
+> **Hackfest x Datathon 2026 Submission**  
+> **Module:** Generative AI
 
-The challenge is to design a **Multi-Agent Narrative System** where autonomous agents navigate a world defined by a "Story Seed." Unlike traditional chatbots, these agents must possess:
-- A sense of physical presence.
-- Memory of past interactions.
-- The ability to execute non-verbal actions to resolve conflicts and achieve goals.
+This repository contains an advanced upgrade to the baseline Multi-Agent Narrative System. Unlike traditional chatbots, our agents possess **Cognitive Reasoning** (Thinking), **Physical Agency** (Acting), and **Long-Term Memory** (Learning).
 
-This starter codebase provides a foundational structure using **LangGraph** to demonstrate agentic flow, character interaction, and director oversight.
+---
 
-## 2. Setup
+## 🚀 Key Features Implemented
 
-This project uses `uv` for dependency management.
+### 1. 🧠 Cognitive Reasoning Layer (The "Brain")
+Every character executes a **Chain-of-Thought** process before generating dialogue. 
+- **Internal Monologue:** Agents analyze the situation and their goals privately.
+- **Decision Making:** They decide *whether* to speak or act based on this reasoning.
+- **Output:** Visible in logs as `[INTERNAL THOUGHT]`.
+
+### 2. ⚡ Autonomous Action System (The "Body")
+Characters are no longer limited to speech. They can perform non-verbal actions that modify the story state.
+- **Action Triggers:** Agents autonomously choose actions (e.g., `Picks up phone`, `Pays bribe`).
+- **Enforcement:** If agents act too passive, a "Director Override" injects instructions to force action, ensuring the **5-Action Constraint** is always met.
+- **Visibility:** Actions are logged as distinct narrative events (`type: narration`) and fed back into the context window of other agents.
+
+### 3. 📝 Dynamic Evolving Memory (The "Mind")
+Characters learn from their interactions.
+- **Memory Update Loop:** After each turn, agents can choose to extract a "Memory Nugget" (e.g., "The constable is corrupt").
+### 4. 🎭 Emotional Intelligence Engine
+Agents possess dynamic emotional states (Moods) that evolve based on the conversation.
+- **Mood Tracking:** Characters transition (e.g., `Neutral` -> `Angry` -> `Desperate`).
+- **Context Injection:** The current mood is injected into the prompt, influencing the tone of the *next* response.
+- **Visibility:** Mood changes are explicitly logged: `[MOOD CHANGE]: Neutral -> Angry`.
+
+### 5. 🎒 Functional Inventory System
+The "Action" system is backed by a real inventory.
+- **Item Exchange:** Agents can gain (`+`) or lose (`-`) items.
+- **Example:** A driver might lose `"-500 rupees"` and gain `"+Ticket"`.
+- **Log:** Updates are shown as `[INVENTORY]: ['-500 rupees']`.
+
+---
+
+## 🛠️ Setup & Execution
 
 ### Prerequisites
-- Python 3.11+
-- `uv` package manager
+- Python 3.10+
+- `uv` package manager (or standard `pip`).
 
 ### Installation
 
-1.  **Fork the repository**:
-    - Go to the repository page on GitHub.
-    - Click the **Fork** button in the top-right corner to create your own copy.
-    - Clone *your forked repository*:
-      ```bash
-      git clone https://github.com/YOUR_USERNAME/GenAi_DSS.git
-      cd GenAi_DSS
-      ```
-
-2.  **Install dependencies**:
+1.  **Clone & Install Dependencies:**
     ```bash
     uv sync
+    # OR
+    pip install .
     ```
 
-3.  **Environment Configuration**:
-    Create a `.env` file in the root directory and add your Google API Key:
+2.  **Configure Environment:**
+    Create a `.env` file in the root directory:
     ```ini
-    GOOGLE_API_KEY=your_api_key_here
+    GOOGLE_API_KEY=your_gemini_api_key
     ```
 
-## 3. System Guide
+### Running the Simulation
 
-The system is built on a modular architecture to simulate a narrative environment.
-
-### Core Components
-
-- **The Director (`DirectorAgent`)**:
-    - Acts as the central controller.
-    - Decides which character speaks next based on the narrative context.
-    - Monitors the story for conclusion conditions.
-    - Inject narrations to guide the plot.
-
-- **Character Agents (`CharacterAgent`)**:
-    - Distinct personas defined in `character_configs.json`.
-    - Generate dialogue based on their personality, the current story state, and the "Story Seed".
-    - Currently implemented as purely conversational agents.
-
-- **Story State Manager (`StoryStateManager`)**:
-    - Centralized state management for the simulation.
-    - Tracks the story progression, including dialogue history and director notes.
-    - Provides context-aware state views for both the Director and Character agents.
-    - Manages turn counting and checks for story conclusion conditions.
-
-- **Narrative Graph (`NarrativeGraph`)**:
-    - The state machine that orchestrates the flow of the simulation.
-    - Built using `LangGraph`.
-    - Manages the loop: `Director Selects` -> `Character Speaks` -> `Check Conclusion`.
-
-## 4. System Architecture
-
-The following diagram illustrates the current flow of the system:
-
-![Narrative Graph](narrative_graph.png)
-
-## 5. Usage
-
-> [!IMPORTANT]
-> **Mandatory Seed Story**: All participants **MUST** use the provided "Rickshaw Accident" seed story (`examples/rickshaw_accident/seed_story.json`) for their submission.
-
-To run the example scenario:
-
+Execute the main script:
 ```bash
 uv run src/main.py
 ```
 
 The system will:
-1. Load the seed story and characters.
-2. Initialize the agents.
-3. Run the dialogue loop for a maximum number of turns (default 25).
-4. Save the story transcript and logs.
+1.  Initialize the **Rickshaw Accident** scenario.
+2.  Run for **10-25 turns**.
+3.  Auto-generate `story_output.json` (Formatted Narrative) and `prompts_log.json` (Debug Log).
 
-### Output Files
+---
 
-Your system is required to generate the following output files (exact fields may vary, but core content should be similar):
+## 📂 Understanding the Output
 
-**1. Narration Output (`story_output.json`)**
-This file records the final narrative trace of the simulation. It should contain:
-- **Metadata**: Title, seed story description.
-- **Events**: A chronological list of turns, including:
-    - `type`: "dialogue" or "narration".
-    - `speaker`: Who spoke (for dialogue).
-    - `content`: The actual text generated.
-    - `turn`: The turn number.
-- **Conclusion**: Why the story ended.
+The console output is color-coded and structured for clarity:
 
-**2. Prompts Log (`prompts_log.json`)**
-This file serves as a debug/audit log for the LLM interactions. It should track:
-- `timestamp`: When the request was made.
-- `agent`: Which agent (Director or Character) made the request.
-- `prompt`: The full text prompt sent to the LLM.
-- `response`: The raw response received from the model.
+- **[INTERNAL THOUGHT]**: The agent's private reasoning.
+- **[ACTION]**: Physical actions taken (e.g., *Checks watch*).
+- **[DIALOGUE]**: Spoken words.
+- **[MEMORY UPDATED]**: A new fact learned by the agent.
 
-## 6. Disclaimer: Bare Minimum Setup
+### Example Log Entry:
+```
+=== AHMED MALIK'S TURN ===
 
-> [!IMPORTANT]
-> **This is a starter kit.** It contains the essential structure but **LACKS** the advanced features required for the full competition challenge.
+[INTERNAL THOUGHT]:
+   This is wasting my time. I need to leave.
 
-**Missing Features you are encouraged to explore:**
-- **Actions**: The current agents only talk. They cannot perform actions like `[ACTION: Picks up phone]`.
-- **Character Memory**: Individual character memory is missing.
-- **Reasoning**: Participants can explore methods to enhance prompts so agents better reason through their decisions.
+[ACTION]:
+   Checks watch impatiently.
 
-You are expected to extend this codebase to include these features and other novel features.
+[DIALOGUE]:
+   "Constable, I don't have all day!"
+
+[MEMORY UPDATED]: Constable Raza is stalling.
+```
+
+---
+
+## 📜 Technical Design
+For a detailed breakdown of the architecture, prompt engineering, and logic flow, please see [DESIGN_REPORT.md](./DESIGN_REPORT.md).

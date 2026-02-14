@@ -3,7 +3,7 @@ name = "narrative-game-base"
 version = "0.1.0"
 description = "A multi-agent narrative game system using LangGraph"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10,<3.14"
 dependencies = [
     "langgraph>=0.0.10",
     "langchain-google-genai>=0.0.5",
@@ -13,4 +13,4 @@ dependencies = [
 ]
 
 [tool.uv]
-python-version = "3.11"
+python-preference = "managed"

@@ -2,19 +2,63 @@
     "characters": [
         {
             "name": "Saleem",
-            "description": "Poor rickshaw driver, sole earner for family of 5. Speaks Urdu-English mix, uses 'bhai' and 'yaar'. Panicked and defensive after minor accident with expensive car."
+            "description": "Poor rickshaw driver, sole earner for family of 5. Speaks Urdu-English mix, uses 'bhai' and 'yaar'. Panicked and defensive after minor accident with expensive car.",
+            "inventory": [
+                "Rickshaw Keys",
+                "Dirty Rag",
+                "Mobile Phone (Old)"
+            ],
+            "goals": [
+                "Avoid paying for damages",
+                "Don't get arrested",
+                "Get back to work quickly"
+            ],
+            "memory": []
         },
         {
             "name": "Ahmed Malik",
-            "description": "Successful businessman late for international flight. Impatient, entitled. Speaking formally but stressed about missing flight and damage to his car."
+            "description": "Successful businessman late for international flight. Impatient, entitled. Speaking formally but stressed about missing flight and damage to his car.",
+            "inventory": [
+                "Wallet (Credit Cards, Cash)",
+                "Smartphone",
+                "Passport",
+                "Plane Ticket"
+            ],
+            "goals": [
+                "Catch flight",
+                "Get compensation for car damage",
+                "Establish dominance"
+            ],
+            "memory": []
         },
         {
             "name": "Constable Raza",
-            "description": "15-year traffic police veteran, underpaid and cynical. Just wants to clear traffic and maybe get a 'facilitation fee'. Sees this as everyday nuisance."
+            "description": "15-year traffic police veteran, underpaid and cynical. Just wants to clear traffic and maybe get a 'facilitation fee'. Sees this as everyday nuisance.",
+            "inventory": [
+                "Challan Book",
+                "Whistle",
+                "Baton"
+            ],
+            "goals": [
+                "Clear the traffic",
+                "Extract a bribe (chai-pani)",
+                "assert authority"
+            ],
+            "memory": []
         },
         {
             "name": "Uncle Jameel",
-            "description": "Local shopkeeper who witnessed everything. Nosy, loves drama, gives unsolicited advice in thick Urdu accent. Claims to know 'someone in police'."
+            "description": "Local shopkeeper who witnessed everything. Nosy, loves drama, gives unsolicited advice in thick Urdu accent. Claims to know 'someone in police'.",
+            "inventory": [
+                "Tray of Chai",
+                "Newspaper"
+            ],
+            "goals": [
+                "Watch the drama",
+                "Offer unsolicited advice",
+                "Promote his chai shop"
+            ],
+            "memory": []
         }
     ]
 }

@@ -12,6 +12,16 @@ class DialogueTurn(BaseModel):
 class CharacterProfile(BaseModel):
     name: str
     description: str
+    inventory: List[str] = Field(default_factory=list)
+    goals: List[str] = Field(default_factory=list)
+    memory: List[str] = Field(default_factory=list)
+    mood: str = Field(default="Neutral")
+
+class Action(BaseModel):
+    has_action: bool = False
+    action_type: Optional[str] = None
+    action_detail: Optional[str] = None
+
 
 class StoryState(BaseModel):
     seed_story: Dict[str, Any]
