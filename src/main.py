@@ -82,8 +82,35 @@ async def main():
     print(f"Ended after {final_state['current_turn']} turns")
     print(f"Reason: {final_state.get('conclusion_reason')}")
 
-    # Save to JSON
-    output_path = project_root / "story_output.json"
+    # Ensure directory exists
+    output_dir = project_root / "Story_Output"
+    output_dir.mkdir(exist_ok=True)
+
+    # Create valid filename: Title_Scenario#[NextNumber].json
+    raw_title = seed_story.get("title", "Story")
+    # Sanitize: Alphanumeric + spaces/dashes/underscores only, then spaces -> underscores
+    safe_title = "".join(x for x in raw_title if x.isalnum() or x in " -_").strip().replace(" ", "_")
+    
+    # Find the next scenario number by scanning existing files
+    existing_files = list(output_dir.glob(f"{safe_title}_Scenario#*.json"))
+    max_num = 0
+    for f in existing_files:
+        try:
+            # Expected format: Title_Scenario#1.json
+            # extract the number after the last '#'
+            parts = f.stem.split("#")
+            if len(parts) > 1 and parts[-1].isdigit():
+                num = int(parts[-1])
+                if num > max_num:
+                    max_num = num
+        except Exception:
+            pass
+            
+    next_num = max_num + 1
+    filename = f"{safe_title}_Scenario#{next_num}.json"
+    
+    output_path = output_dir / filename
+    
     output_data = {
         "title": seed_story.get("title"),
         "seed_story": seed_story,
