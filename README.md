@@ -69,13 +69,22 @@ uv run src/main.py
 The system will:
 1.  Initialize the **Rickshaw Accident** scenario.
 2.  Run for **10-25 turns**.
-3.  Auto-generate `story_output.json` (Formatted Narrative) and `prompts_log.json` (Debug Log).
+3.  Auto-generate story files in the `Story_Output/` directory (e.g., `Story_Output/The_Rickshaw_Accident_Scenario#1.json`) and `prompts_log.json` (Debug Log).
 
 ---
 
 ## 📂 Understanding the Output
 
-The console output is color-coded and structured for clarity:
+The console output is color-coded and structured for clarity. Additionally, structured JSON logs are saved to disk.
+
+### 📄 Output Files
+
+- **`Story_Output/` Folder**: Contains the full narrative logs in JSON format.
+  - Files are named: `[Scenario_Name]#[Run_ID].json` (e.g., `The_Rickshaw_Accident_Scenario#1.json`).
+  - Each file contains an array of turn objects with structured fields (speaker, dialogue, action, mood, memory).
+- **`prompts_log.json`**: A raw debug log of all prompts sent to the LLM and its responses.
+
+### Console Output Structure:
 
 - **[INTERNAL THOUGHT]**: The agent's private reasoning.
 - **[ACTION]**: Physical actions taken (e.g., *Checks watch*).
