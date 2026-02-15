@@ -47,6 +47,18 @@ Agents possess a mutable long-term memory.
 - **Storage:** This string is appended to the `CharacterProfile.memory` list.
 - **Reinjection:** In future turns, the `get_character_prompt` function retrieves this list and injects it under `"Things You Remember (Long-term Facts)"`. This allows agents to recall events even if they slide out of the token window.
 
+### 2.4 Robust Error Handling
+To prevent simulation crashes due to LLM variance:
+- **JSON Parsing Fallback:** The `CharacterAgent` wraps the generation process in a try-catch block.
+- **Recovery Strategy:** If `json.loads()` fails (e.g., due to extra text or markdown formatting), the raw content is captured and treated as simple *dialogue*, while *action* and *memory* fields are set to `None`. This ensures the story continues even if the structured output fails.
+
+### 2.5 Prompt Engineering Strategy
+The system uses a structured prompt that injects dynamic state:
+1. **Persona & Goals:** Static character definition + specific objectives.
+2. **Current State:** Inventory list + Current Mood.
+3. **Context Window:** Recent dialogue + Last Director Narration.
+4. **Long-Term Memory:** "Remembered" facts from previous turns.
+
 ---
 
 ## 3. Design Decisions & Trade-offs

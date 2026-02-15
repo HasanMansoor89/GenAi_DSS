@@ -36,6 +36,16 @@ The "Action" system is backed by a real inventory.
 - **Example:** A driver might lose `"-500 rupees"` and gain `"+Ticket"`.
 - **Log:** Updates are shown as `[INVENTORY]: ['-500 rupees']`.
 
+### 6. 🎯 Goal-Oriented Behavior
+Agents are not just reactive; they are driven by specific objectives.
+- **Context Injection:** Each agent has a set of `goals` injected into their system prompt (e.g., "Avoid paying the bribe", "Get to the hospital").
+- **Impact:** The "Chain-of-Thought" engine uses these goals to evaluate trade-offs during decision making.
+
+### 7. 🛡️ Robustness & Reliability
+The system includes fail-safes to ensure continuous operation.
+- **JSON Validation:** All agent outputs are validated against a strict schema.
+- **Auto-Correction:** If an LLM produces malformed JSON, a fallback mechanism captures the raw text as dialogue to prevent a crash.
+
 ---
 
 ## 🛠️ Setup & Execution
